@@ -14,13 +14,13 @@ function LoginOrSignup() {
       }
 
   return (
-    <Paper elevation={1}>
+    <Paper elevation={1} >
         <ToggleButtonGroup
         color="primary"
         value={toggle}
         exclusive
         onChange={handleChange}
-        justifyContent="center"
+        sx={{mt:3}}
         >
         <ToggleButton value="login">Login</ToggleButton>
         <ToggleButton value="signup">Sign Up</ToggleButton>

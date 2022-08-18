@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
-  resources :questions
-  resources :quizzes
-  resources :users
+  resources :quiz_questions, only: []
+  resources :questions, only: []
+  resources :quizzes, only: []
+  resources :users, only: []
+
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  # test route for cookies at http://localhost:3000/test
+  get "/test", to: "application#cookie_test"
 end

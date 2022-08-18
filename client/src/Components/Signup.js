@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container } from "@mui/material"
+import { Button,
+  CssBaseline,
+  TextField,
+  Grid,
+  Box,
+  Typography,
+  Container } from "@mui/material"
 
 const initialForm = {
   username: "",
@@ -7,13 +13,13 @@ const initialForm = {
 }
 
 function Signup({ onCreateOrLog, responseFromAccountOrLogged }) {
-  const [createAccountForm, setCreateAccountForm] = useState(initialForm);
+  const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState(null);
 
   function handleCreateChange(e) {
     const target = e.target.name;
     const value = e.target.value;
-    setCreateAccountForm({ ...createAccountForm, [target]: value });
+    setForm({ ...form, [target]: value });
   }
 
   function handleCreateSubmit(e) {
@@ -25,17 +31,17 @@ function Signup({ onCreateOrLog, responseFromAccountOrLogged }) {
         "Content-Type": "application/json",
         "Accept": "application/json",
       },
-      body: JSON.stringify(createAccountForm),
+      body: JSON.stringify(form),
     }).then((r) => {
       if (r.ok) {
         r.json().then((user) => {
           setErrors(null);
-          setCreateAccountForm(initialForm);
+          setForm(initialForm);
           onCreateOrLog(user);
         });
       } else {
         r.json().then((err) => {
-          setCreateAccountForm(initialForm);
+          setForm(initialForm);
           setErrors(err);
         });
       }
@@ -47,7 +53,7 @@ function Signup({ onCreateOrLog, responseFromAccountOrLogged }) {
       <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            mt: 3,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -62,10 +68,10 @@ function Signup({ onCreateOrLog, responseFromAccountOrLogged }) {
                   <TextField
                     name="username"
                     type="text"
-                    fullWidth
                     required
+                    fullWidth
                     label="Username"
-                    value={createAccountForm.username}
+                    value={form.username}
                     onChange={handleCreateChange}
                   />
                 </Grid>
@@ -77,7 +83,7 @@ function Signup({ onCreateOrLog, responseFromAccountOrLogged }) {
                     fullWidth
                     required
                     label="Password"
-                    value={createAccountForm.password}
+                    value={form.password}
                     onChange={handleCreateChange}
                   />
                 </Grid>
@@ -86,7 +92,7 @@ function Signup({ onCreateOrLog, responseFromAccountOrLogged }) {
                 type="submit" 
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 3 }}
+                sx={{ mt: 3, mb: 2 }}
               >Sign Up
               </Button>
             </Box>
