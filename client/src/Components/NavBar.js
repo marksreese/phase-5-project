@@ -10,7 +10,18 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from "react-router-dom"
 
-function NavBar() {
+function NavBar({ setUser }) {
+    const handleLogout = () => {
+        fetch("logout", {
+            method: "DELETE"
+        }.then(r => {
+            if (r.ok) {
+                setUser(null)
+            }
+        })
+        )
+    }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
@@ -55,7 +66,8 @@ function NavBar() {
                     </IconButton>
                     <IconButton color="inherit"
                     component={Link}
-                    to={"/login"}>
+                    onClick={handleLogout}
+                    to={"/"}>
                     <LogoutIcon/>
                     </IconButton>
             </Toolbar>

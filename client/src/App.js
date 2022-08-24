@@ -31,7 +31,7 @@ function App() {
 
   return (
     <ThemeProvider theme={darkTheme} >
-      <NavBar/>
+      <NavBar setUser={setUser}/>
       <Routes>
         <Route path="/" element={<Landing user={user} />} />
         <Route path="/login" element={<LoginOrSignup/>} />

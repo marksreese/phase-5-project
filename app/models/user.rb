@@ -1,7 +1,5 @@
 class User < ApplicationRecord
     has_secure_password
-
     has_many :quizzes
-    #dependent: :destroy?
-    validates :username, uniqueness: true
+    validates :username, uniqueness: true, presence: true
 end

@@ -16,13 +16,14 @@ function Landing({ user }) {
         setAuthorized(true);
       }
     });
-  }, []);
+  }, [])
 
   return (
     <Paper elevation={2}>
         <CssBaseline />
         <Typography>
-        Welcome to the landing page! Current user: {user}
+        Current user: {user}
+        Tokens available to redeem: {user.tokens}
         </Typography>
     </Paper>
   )
