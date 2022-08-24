@@ -6,6 +6,7 @@ import { AppBar,
     Button } from "@mui/material/"
 import MenuIcon from "@mui/icons-material/Menu"
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from "react-router-dom"
 
@@ -51,6 +52,11 @@ function NavBar() {
                     component={Link}
                     to={"/login"}>
                     <AccountCircleIcon/>
+                    </IconButton>
+                    <IconButton color="inherit"
+                    component={Link}
+                    to={"/login"}>
+                    <LogoutIcon/>
                     </IconButton>
             </Toolbar>
         </AppBar>

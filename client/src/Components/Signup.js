@@ -62,7 +62,7 @@ function Signup({ onCreateOrLog, responseFromAccountOrLogged }) {
           <Typography component="h1" variant="h5">
             Create An Account:
           </Typography>
-            <Box component='form' noValidate onSubmit={handleCreateSubmit} sx={{ mt: 3 }}>
+            <Box component='form' noValidate onSubmit={handleCreateSubmit} >
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField

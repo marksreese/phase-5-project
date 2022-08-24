@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Routes, Route } from "react-router-dom"
 import NavBar from "./Components/NavBar"
 import Footer from "./Components/Footer"
@@ -19,11 +19,21 @@ function App() {
       mode: "dark"
     }
   })
+
+  const [user, setUser] = useState(null)
+  const [loaded, setLoaded] = useState(false)
+  const [authorized, setAuthorized] = useState(false)
+  const [nfts, setNfts] = useState([])
+
+  useEffect(() => {
+    fetch ("users/show")
+  })
+
   return (
     <ThemeProvider theme={darkTheme} >
       <NavBar/>
       <Routes>
-        <Route path="/" element={<Landing/>} />
+        <Route path="/" element={<Landing user={user} />} />
         <Route path="/login" element={<LoginOrSignup/>} />
         <Route path="/nfts" element={<MyNFTs/>} />
         <Route path="/quiz" element={<Quiz/>} />
