@@ -1,7 +1,10 @@
 import { useState } from "react"
 import Login from "./Login.js"
 import Signup from "./Signup.js"
-import { Paper, ToggleButton, ToggleButtonGroup } from "@mui/material"
+import { Container,
+  Paper,
+  ToggleButton,
+  ToggleButtonGroup } from "@mui/material"
 
 
 function LoginOrSignup({ setUser }) {
@@ -14,8 +17,8 @@ function LoginOrSignup({ setUser }) {
 
   return (
     <Paper elevation={1} >
+      <Container >
         <ToggleButtonGroup
-        justifyContent="align-self"
         color="primary"
         value={toggle}
         exclusive
@@ -26,6 +29,7 @@ function LoginOrSignup({ setUser }) {
         <ToggleButton value="signup">Sign Up</ToggleButton>
         </ToggleButtonGroup>
         {toggle==="login" ? <Login setUser={setUser} /> : <Signup setUser={setUser} />}
+      </Container>
     </Paper>
   )
 }

@@ -2,7 +2,7 @@ import { Box,
     RadioGroup,
     Radio,
     FormControlLabel,
-    FormLabel,
+    Card,
     Button } from "@mui/material/"
 import { useState } from "react"
 
@@ -31,7 +31,7 @@ function Question({ question, setTotal }) {
   }
 
   return (
-    <Box>
+    <Box >
       Question #{id}: {text}
       <RadioGroup onChange={handleSelect} >
         <FormControlLabel value="1"

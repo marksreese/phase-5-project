@@ -39,7 +39,7 @@ function Landing({ user }) {
         </Typography>
       )}
       <Button onClick={handleExchange}>
-        Exchange an app token for an NFT (placeholder)!
+        Exchange an app token for a (placeholder) NFT!
       </Button>
     </Paper>
   )

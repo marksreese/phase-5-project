@@ -5,6 +5,7 @@ class UsersController < ApplicationController
       if !User.find_by(username: params[:username])
         user = User.create!(user_params)
         user.tokens = 0
+        user.nfts = 0
         session[:user_id] = user.id
         render json: user, status: :created
       else

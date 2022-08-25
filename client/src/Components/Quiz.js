@@ -2,9 +2,11 @@ import { Paper,
   CssBaseline,
   Container,
   Box,
-  Button } from "@mui/material/"
+  Button,
+  FormLabel } from "@mui/material/"
 import { useState, useEffect } from "react"
 import Question from "./Question.js"
+import { useNavigate } from "react-router-dom"
 
 function Quiz() {
   const [questions, setQuestions] = useState(null)
@@ -18,9 +20,12 @@ function Quiz() {
     })
   }, [])
 
+  const handleSubmit = () => {
+
+  }
+
     return (
-      <Paper elevation={2}>
-        {total}
+      <Paper elevation={2} sx={{pt:2}}>
         <Container>
         <CssBaseline/>
         {loaded ?
@@ -29,8 +34,18 @@ function Quiz() {
         <Question question={question} setTotal={setTotal} />)}
         </Box>
         : 
-        null
+        <FormLabel>
+          Loading quiz questions...
+        </FormLabel>
         }
+        </Container>
+        <Container justifyContent="center">
+        <FormLabel>
+          A perfect score gets you two (2) tokens! 11/14 gets one (1) token, and 8/14 gets half (0.5) of a token.
+        </FormLabel>
+        <Button onClick={handleSubmit}>
+          Submit Quiz! Good luck!
+        </Button>
         </Container>
       </Paper>
     )

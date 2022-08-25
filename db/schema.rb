@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_18_175036) do
     t.string "username"
     t.string "password_digest"
     t.integer "tokens"
+    t.integer "nfts"
   end
 
   add_foreign_key "quiz_questions", "questions"

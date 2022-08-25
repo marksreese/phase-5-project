@@ -9,6 +9,9 @@ Rails.application.routes.draw do
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
+  patch "/increment", to: "users#increment"
+  patch "/decrement", to: "users#decrement"
+
   # test route for cookies at http://localhost:3000/test
   get "/test", to: "application#cookie_test"
 end
