@@ -1,19 +1,22 @@
-import { Paper, Typography, CssBaseline, Box } from "@mui/material"
+import { Paper,
+  Typography,
+  CssBaseline,
+  Box,
+  Button } from "@mui/material"
 import { useState, useEffect } from "react"
 
 function Landing({ user }) {
     let username = null
     let tokens = null
-    if (user!==null){
+    if (user!==null) {
     username=user.username
     tokens=user.tokens
-    console.log(username)
     }
 
   return (
     <Paper elevation={2}>
       <CssBaseline />
-      {(username !== null ?
+      {(user !== null ?
       <Box>
         <Typography>
           Current user: {username}
@@ -22,12 +25,14 @@ function Landing({ user }) {
           Tokens available to redeem: {tokens}
         </Typography>
       </Box>
-
       :
         <Typography>
           No user currently logged in
         </Typography>
       )}
+      <Button>
+        Exchange an app token for an NFT (placeholder)!
+      </Button>
     </Paper>
   )
 }

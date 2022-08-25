@@ -5,16 +5,18 @@ import { Button,
   Box,
   Typography,
   Container } from '@mui/material'
-import { Link } from "react-router-dom"
-
-const initialForm = {
-  username: "",
-  password: "",
-}
+import { useNavigate } from "react-router-dom"
 
 function Login({ setUser, handleLogin }) {
-  const [form, setForm] = useState(initialForm);
-  const [errors, setErrors] = useState(null);
+
+  const initialForm = {
+    username: "",
+    password: "",
+  }
+
+  const [form, setForm] = useState(initialForm)
+  const [errors, setErrors] = useState(null)
+  const nav = useNavigate()
 
   function handleInput(e) {
     const target = e.target.name;
@@ -24,7 +26,6 @@ function Login({ setUser, handleLogin }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("hello")
     fetch("/login", {
       method: "POST",
       headers: {
@@ -34,15 +35,15 @@ function Login({ setUser, handleLogin }) {
       body: JSON.stringify(form),
     }).then(resp => {
       if (resp.ok) {
-        resp.json().then((user) => {
+        resp.json().then(user => {
           setErrors(null)
           setForm(initialForm)
           setUser(user)
+          nav("/")
         })
       }
       else {
-        resp.json().then((err) => {
-          setForm(initialForm)
+        resp.json().then(err => {
           setErrors(err)
         })
       }
@@ -53,47 +54,44 @@ function Login({ setUser, handleLogin }) {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Box sx={{
-            mt: 3,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }} >
-          <Typography component="h1" variant="h5">
-            Sign In:
-          </Typography>
-          
-          <Box component='form' >
-            <TextField
-              margin="normal"
-              name="username"
-              type="text"
-              label="Username"
-              required
-              fullWidth
-              value={form.username}
-              onChange={handleInput}
-            />
-            <TextField
-              margin="normal"
-              name="password"
-              type="password"
-              label="Password"
-              required
-              fullWidth
-              value={form.password}
-              onChange={handleInput}
-            />
-            {errors ? <p>{errors.error}</p> : null}
-            <Button
-              component={Link} 
-              onClick={handleSubmit}
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              to={"/"} >
-              Sign In
-            </Button>
-          </Box>
+        mt: 3,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }} >
+        <Typography component="h1" variant="h5">
+          Sign In:
+        </Typography>
+        <Box component='form' >
+          <TextField
+            margin="normal"
+            name="username"
+            type="text"
+            label="Username"
+            required
+            fullWidth
+            value={form.username}
+            onChange={handleInput}
+          />
+          <TextField
+            margin="normal"
+            name="password"
+            type="password"
+            label="Password"
+            required
+            fullWidth
+            value={form.password}
+            onChange={handleInput}
+          />
+          {errors ? <Typography>{errors.error}</Typography> : null}
+          <Button
+            onClick={handleSubmit}
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }} >
+            Sign In
+          </Button>
+        </Box>
       </Box>
     </Container>
   )

@@ -11,15 +11,15 @@ import HomeIcon from '@mui/icons-material/Home';
 import { Link } from "react-router-dom"
 
 function NavBar({ user, setUser }) {
+
     const handleLogout = () => {
         fetch("logout", {
             method: "DELETE"
-        }.then(resp => {
+        }).then(resp => {
             if (resp.ok) {
                 setUser(null)
             }
         })
-        )
     }
 
   return (

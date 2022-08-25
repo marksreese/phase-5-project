@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button,
   CssBaseline,
   TextField,
@@ -6,7 +6,7 @@ import { Button,
   Box,
   Typography,
   Container } from "@mui/material"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 function Signup({ setUser }) {
 
@@ -15,39 +15,41 @@ function Signup({ setUser }) {
     password: "",
   }
 
-  const [form, setForm] = useState(initialForm);
-  const [errors, setErrors] = useState(null);
+  const [form, setForm] = useState(initialForm)
+  const [errors, setErrors] = useState(null)
+  const nav = useNavigate()
 
-  function handleCreateChange(e) {
+  function handleInput(e) {
     const target = e.target.name;
     const value = e.target.value;
     setForm({ ...form, [target]: value });
   }
 
-  function handleCreateSubmit(e) {
-    e.preventDefault();
+  function handleSubmit(e) {
+    e.preventDefault()
 
     fetch("/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Accept": "application/json",
+        "Accept": "application/json"
       },
-      body: JSON.stringify(form),
-    }).then((r) => {
-      if (r.ok) {
-        r.json().then((user) => {
-          setErrors(null);
-          setForm(initialForm);
-          setUser(user);
-        });
-      } else {
-        r.json().then((err) => {
-          setForm(initialForm);
-          setErrors(err);
-        });
+      body: JSON.stringify(form)
+    }).then(resp => {
+      if (resp.ok) {
+        resp.json().then(user => {
+          setErrors(null)
+          setForm(initialForm)
+          setUser(user)
+          nav("/")
+        })
       }
-    });
+      else {
+        resp.json().then(err => {
+          setErrors(err)
+        })
+      }
+    })
   }
 
   return (
@@ -60,55 +62,52 @@ function Signup({ setUser }) {
             flexDirection: 'column',
             alignItems: 'center',
           }}
-        >{true ? (<>
+        >
           <Typography component="h1" variant="h5">
             Create An Account:
           </Typography>
-            <Box component='form' noValidate onSubmit={handleCreateSubmit} >
+            <Box component='form' noValidate >
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
+                    margin="normal"
                     name="username"
                     type="text"
                     required
                     fullWidth
                     label="Username"
                     value={form.username}
-                    onChange={handleCreateChange}
+                    onChange={handleInput}
                   />
                 </Grid>
-                  {errors ? <p>{errors.errors}</p> : null}
                 <Grid item xs={12}>
                   <TextField
+                    margin="normal"
                     name="password"
                     type="password"
                     fullWidth
                     required
                     label="Password"
                     value={form.password}
-                    onChange={handleCreateChange}
+                    onChange={handleInput}
                   />
                 </Grid>
               </Grid>
-              <Button
-                component={Link} 
-                type="submit" 
+              {errors ?
+              <Typography>{errors.error}</Typography>
+              :
+              null}
+              <Button 
+                onClick={handleSubmit}
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }} 
-                to={"/"}>
+                sx={{ mt: 3, mb: 2 }} >
                 Sign Up
               </Button>
             </Box>
-        </>
-      ) : (
-        <>
-          <h2>Account created - Welcome!</h2>
-        </>
-      )}
       </Box>
     </Container>
-  );
+  )
 }
 
 export default Signup;
