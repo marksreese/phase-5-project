@@ -4,13 +4,12 @@ import Signup from "./Signup.js"
 import { Paper, ToggleButton, ToggleButtonGroup } from "@mui/material"
 
 
-function LoginOrSignup() {
+function LoginOrSignup({ setUser }) {
     const [toggle, setToggle] = useState("login")
 
     const handleChange = (e, newToggle) => {
-        // console.log(e)
-        // console.log(newToggle)
-        setToggle(newToggle);
+        setToggle(newToggle)
+        //why does newToggle work this way?
       }
 
   return (
@@ -25,7 +24,7 @@ function LoginOrSignup() {
         <ToggleButton value="login">Login</ToggleButton>
         <ToggleButton value="signup">Sign Up</ToggleButton>
         </ToggleButtonGroup>
-        {toggle==="login" ? <Login/> : <Signup/>}
+        {toggle==="login" ? <Login setUser={setUser} /> : <Signup setUser={setUser} />}
     </Paper>
   )
 }

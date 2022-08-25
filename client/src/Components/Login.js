@@ -5,59 +5,59 @@ import { Button,
   Box,
   Typography,
   Container } from '@mui/material'
+import { Link } from "react-router-dom"
 
 const initialForm = {
   username: "",
   password: "",
 }
 
-function Login({ onCreateOrLog, responseFromAccountOrLogged }) {
-  const [loginAccount, setLoginAccount] = useState(initialForm);
+function Login({ setUser, handleLogin }) {
+  const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState(null);
 
-  function handleLoginChange(e) {
+  function handleInput(e) {
     const target = e.target.name;
     const value = e.target.value;
-    setLoginAccount({ ...loginAccount, [target]: value });
+    setForm({ ...form, [target]: value });
   }
 
-  function handleLoginSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-
+    console.log("hello")
     fetch("/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",
       },
-      body: JSON.stringify(loginAccount),
-    }).then((r) => {
-      if (r.ok) {
-        r.json().then((user) => {
-          setErrors(null);
-          setLoginAccount(initialForm);
-          onCreateOrLog(user);
-        });
-      } else {
-        r.json().then((err) => {
-          setLoginAccount(initialForm);
-          setErrors(err);
-        });
+      body: JSON.stringify(form),
+    }).then(resp => {
+      if (resp.ok) {
+        resp.json().then((user) => {
+          setErrors(null)
+          setForm(initialForm)
+          setUser(user)
+        })
       }
-    });
+      else {
+        resp.json().then((err) => {
+          setForm(initialForm)
+          setErrors(err)
+        })
+      }
+    })
   }
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <Box sx={{
-            marginTop: 8,
+            mt: 3,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }} >
-      {!responseFromAccountOrLogged ? (
-        <>
           <Typography component="h1" variant="h5">
             Sign In:
           </Typography>
@@ -70,8 +70,8 @@ function Login({ onCreateOrLog, responseFromAccountOrLogged }) {
               label="Username"
               required
               fullWidth
-              value={loginAccount.username}
-              onChange={handleLoginChange}
+              value={form.username}
+              onChange={handleInput}
             />
             <TextField
               margin="normal"
@@ -80,24 +80,23 @@ function Login({ onCreateOrLog, responseFromAccountOrLogged }) {
               label="Password"
               required
               fullWidth
-              value={loginAccount.password}
-              onChange={handleLoginChange}
+              value={form.password}
+              onChange={handleInput}
             />
             {errors ? <p>{errors.error}</p> : null}
-            <Button 
-            onClick={handleLoginSubmit}
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            >Sign In</Button>
+            <Button
+              component={Link} 
+              onClick={handleSubmit}
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              to={"/"} >
+              Sign In
+            </Button>
           </Box>
-        </>
-      ) : (
-        <h2>Welcome!</h2>
-      )}
       </Box>
     </Container>
-  );
+  )
 }
 
 export default Login;

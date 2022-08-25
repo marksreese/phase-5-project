@@ -6,13 +6,15 @@ import { Button,
   Box,
   Typography,
   Container } from "@mui/material"
+import { Link } from "react-router-dom"
 
-const initialForm = {
-  username: "",
-  password: "",
-}
+function Signup({ setUser }) {
 
-function Signup({ onCreateOrLog, responseFromAccountOrLogged }) {
+  const initialForm = {
+    username: "",
+    password: "",
+  }
+
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState(null);
 
@@ -37,7 +39,7 @@ function Signup({ onCreateOrLog, responseFromAccountOrLogged }) {
         r.json().then((user) => {
           setErrors(null);
           setForm(initialForm);
-          onCreateOrLog(user);
+          setUser(user);
         });
       } else {
         r.json().then((err) => {
@@ -58,7 +60,7 @@ function Signup({ onCreateOrLog, responseFromAccountOrLogged }) {
             flexDirection: 'column',
             alignItems: 'center',
           }}
-        >{!responseFromAccountOrLogged ? (<>
+        >{true ? (<>
           <Typography component="h1" variant="h5">
             Create An Account:
           </Typography>
@@ -88,12 +90,14 @@ function Signup({ onCreateOrLog, responseFromAccountOrLogged }) {
                   />
                 </Grid>
               </Grid>
-              <Button 
+              <Button
+                component={Link} 
                 type="submit" 
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >Sign Up
+                sx={{ mt: 3, mb: 2 }} 
+                to={"/"}>
+                Sign Up
               </Button>
             </Box>
         </>

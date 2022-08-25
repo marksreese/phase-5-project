@@ -1,32 +1,36 @@
-import { Paper, Typography, CssBaseline } from "@mui/material"
+import { Paper, Typography, CssBaseline, Box } from "@mui/material"
 import { useState, useEffect } from "react"
 
 function Landing({ user }) {
-  const [currentUser, setCurrentUser] = useState(null)
-  const [authorized, setAuthorized] = useState(false)
-
-  useEffect(() => {
-    fetch("/users/show").then((r) => {
-      if (r.ok) {
-        r.json().then((user) => {
-          setCurrentUser(user);
-          setAuthorized(true);
-        });
-      } else {
-        setAuthorized(true);
-      }
-    });
-  }, [])
+    let username = null
+    let tokens = null
+    if (user!==null){
+    username=user.username
+    tokens=user.tokens
+    console.log(username)
+    }
 
   return (
     <Paper elevation={2}>
-        <CssBaseline />
+      <CssBaseline />
+      {(username !== null ?
+      <Box>
         <Typography>
-        Current user: {user}
-        Tokens available to redeem: {user.tokens}
+          Current user: {username}
         </Typography>
+        <Typography>
+          Tokens available to redeem: {tokens}
+        </Typography>
+      </Box>
+
+      :
+        <Typography>
+          No user currently logged in
+        </Typography>
+      )}
     </Paper>
   )
 }
 
 export default Landing
+

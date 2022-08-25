@@ -11,7 +11,6 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import { ThemeProvider, createTheme } from "@mui/material/styles"
-// import CssBaseline  from "@mui/material/Cssbaseline"
 
 function App() {
   const darkTheme  = createTheme({
@@ -22,19 +21,24 @@ function App() {
 
   const [user, setUser] = useState(null)
   const [loaded, setLoaded] = useState(false)
-  const [authorized, setAuthorized] = useState(false)
   const [nfts, setNfts] = useState([])
 
   useEffect(() => {
-    fetch ("users/show")
-  })
+    fetch("/users/show").then(resp => {
+      if (resp.ok) {
+        resp.json().then(user => {
+          setUser(user)
+        })
+      } 
+    })
+  }, [])
 
   return (
     <ThemeProvider theme={darkTheme} >
-      <NavBar setUser={setUser}/>
+      <NavBar user={user} setUser={setUser} />
       <Routes>
         <Route path="/" element={<Landing user={user} />} />
-        <Route path="/login" element={<LoginOrSignup/>} />
+        <Route path="/login" element={<LoginOrSignup setUser={setUser} />} />
         <Route path="/nfts" element={<MyNFTs/>} />
         <Route path="/quiz" element={<Quiz/>} />
       </Routes>

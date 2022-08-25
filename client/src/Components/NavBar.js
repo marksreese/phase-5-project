@@ -10,12 +10,12 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from "react-router-dom"
 
-function NavBar({ setUser }) {
+function NavBar({ user, setUser }) {
     const handleLogout = () => {
         fetch("logout", {
             method: "DELETE"
-        }.then(r => {
-            if (r.ok) {
+        }.then(resp => {
+            if (resp.ok) {
                 setUser(null)
             }
         })
@@ -43,33 +43,33 @@ function NavBar({ setUser }) {
                 >
                     SE51622 "Stranger Strings" NFTs!
                 </Typography>
-                    <IconButton color="inherit"
+                <IconButton color="inherit"
+                component={Link}
+                to={"/"}
+                >
+                <HomeIcon/>
+                </IconButton>
+                <Button color="inherit"
+                component={Link}
+                to={"/nfts"}
+                >My NFTs
+                </Button>
+                <Button color="inherit"
+                component={Link}
+                to={"/quiz"}
+                >Take a quiz!
+                </Button>
+                <IconButton color="inherit"
                     component={Link}
-                    to={"/"}
-                    >
-                    <HomeIcon/>
-                    </IconButton>
-                    <Button color="inherit"
-                    component={Link}
-                    to={"/nfts"}
-                    >My NFTs
-                    </Button>
-                    <Button color="inherit"
-                    component={Link}
-                    to={"/quiz"}
-                    >Take a quiz!
-                    </Button>
-                    <IconButton color="inherit"
-                    component={Link}
-                    to={"/login"}>
+                    to={"/login"} >
                     <AccountCircleIcon/>
-                    </IconButton>
-                    <IconButton color="inherit"
+                </IconButton>
+                <IconButton color="inherit"
                     component={Link}
                     onClick={handleLogout}
-                    to={"/"}>
+                    to={"/"} >
                     <LogoutIcon/>
-                    </IconButton>
+                </IconButton>
             </Toolbar>
         </AppBar>
     </Box>

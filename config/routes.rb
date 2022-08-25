@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  resources :quiz_questions, only: []
-  resources :questions, only: []
-  resources :quizzes, only: []
-  resources :users, only: []
+  resources :quiz_questions, only: [:create, :show]
+  resources :questions, only: [:create, :show, :index]
+  resources :quizzes, only: [:create]
+  resources :users, only: [:create, :show]
 
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
