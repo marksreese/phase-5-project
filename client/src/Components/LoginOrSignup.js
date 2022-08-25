@@ -15,6 +15,7 @@ function LoginOrSignup({ setUser }) {
   return (
     <Paper elevation={1} >
         <ToggleButtonGroup
+        justifyContent="align-self"
         color="primary"
         value={toggle}
         exclusive

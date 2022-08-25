@@ -1,16 +1,15 @@
 import { Paper,
   CssBaseline,
   Container,
-  IconButton,
-  Typography,
+  Box,
   Button } from "@mui/material/"
-import { textTransform } from "@mui/system"
 import { useState, useEffect } from "react"
 import Question from "./Question.js"
 
 function Quiz() {
   const [questions, setQuestions] = useState(null)
   const [loaded, setLoaded] = useState(false)
+  const [total, setTotal] = useState(0)
 
   useEffect(() => {
     fetch("/questions").then(resp => resp.json()).then(data => {
@@ -19,22 +18,22 @@ function Quiz() {
     })
   }, [])
 
-  const renderQuestions = questions.map(question =>
-  <Question question={question} />)
-
-  if (!loaded) {
-    return <Typography>Loading...</Typography>
-  }
-  else {
     return (
       <Paper elevation={2}>
+        {total}
         <Container>
         <CssBaseline/>
-        {renderQuestions}
+        {loaded ?
+        <Box>
+        {questions.map(question =>
+        <Question question={question} setTotal={setTotal} />)}
+        </Box>
+        : 
+        null
+        }
         </Container>
       </Paper>
     )
-  }
 }
 
 export default Quiz

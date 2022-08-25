@@ -59,17 +59,20 @@ function NavBar({ user, setUser }) {
                 to={"/quiz"}
                 >Take a quiz!
                 </Button>
+                {!user ?
                 <IconButton color="inherit"
                     component={Link}
                     to={"/login"} >
                     <AccountCircleIcon/>
                 </IconButton>
+                :
                 <IconButton color="inherit"
                     component={Link}
                     onClick={handleLogout}
                     to={"/"} >
                     <LogoutIcon/>
                 </IconButton>
+                }
             </Toolbar>
         </AppBar>
     </Box>

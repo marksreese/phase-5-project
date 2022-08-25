@@ -83,7 +83,10 @@ function Login({ setUser, handleLogin }) {
             value={form.password}
             onChange={handleInput}
           />
-          {errors ? <Typography>{errors.error}</Typography> : null}
+          {errors ?
+          <Typography>{errors.error}</Typography>
+          :
+          null}
           <Button
             onClick={handleSubmit}
             fullWidth

@@ -89,4 +89,10 @@ Question.create(text: "Which is Yifan's favorite part of a PhD program?",
     answer_three: "TA'ing", 
     answer_four: "Doing a bootcamp in the summer", 
     correct: 4)
+    Question.create(text: "Where was Mark born?", 
+        answer_one: "Mexico City", 
+        answer_two: "Tokyo", 
+        answer_three: "Perth", 
+        answer_four: "Jakarta", 
+        correct: 3)
 puts "done seeding!"

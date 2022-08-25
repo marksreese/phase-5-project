@@ -6,18 +6,26 @@ import { Paper,
 import { useState, useEffect } from "react"
 
 function Landing({ user }) {
-    let username = null
-    let tokens = null
+
+  const [tokens, setTokens] = useState(0)
+  const [username, setUsername] = useState(null)
+  
+  useEffect(() => {
     if (user!==null) {
-    username=user.username
-    tokens=user.tokens
-    }
+      setUsername(user.username)
+      setTokens(user.tokens||0)
+      }
+  }, [])
+
+  const handleExchange = () => {
+
+  }
 
   return (
-    <Paper elevation={2}>
+    <Paper elevation={2} >
       <CssBaseline />
-      {(user !== null ?
-      <Box>
+      {(username !== null ?
+      <Box sx={{}} >
         <Typography>
           Current user: {username}
         </Typography>
@@ -30,7 +38,7 @@ function Landing({ user }) {
           No user currently logged in
         </Typography>
       )}
-      <Button>
+      <Button onClick={handleExchange}>
         Exchange an app token for an NFT (placeholder)!
       </Button>
     </Paper>

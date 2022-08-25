@@ -4,7 +4,7 @@ function Tile({ number }) {
 
   return (
     <Card variant="outlined" sx={{margin:2}} draggable >
-      Tile #{number}
+      NFT placeholder #{number}
     </Card>
   )
 }

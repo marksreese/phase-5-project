@@ -2,14 +2,22 @@ import { useState, useEffect, useRef } from "react"
 import { Paper, CssBaseline, Grid } from "@mui/material"
 import Tile from "./Tile"
 
-function MyNFTs() {
+function MyNFTs({ user }) {
 
-    const [list, setList] = useState([])
-    const [favorites, setFavorites] = useState([])
+    const [tiles, setTiles] = useState([])
+    const [pinned, setPinned] = useState([])
     const dragNumber = useRef(null)
+    let tokens = 0
+    if (user!==null) {
+    tokens=user.tokens
+    }
 
     useEffect(() => {
-      setList([1, 2, 3])
+      const arr = []
+      for (let i = 1; i <= tokens; i++) {
+        arr.push(i)
+      }
+      setTiles(arr)
     }, [])
 
     //drag and drop event handlers
@@ -25,22 +33,22 @@ function MyNFTs() {
       e.preventDefault()
       const num = dragNumber.current
       let toKeep
-      if (to==="list") {
-        toKeep = favorites.filter(itemNum => itemNum!==num)
-        setFavorites(toKeep)
-        setList([...list, num])
+      if (to==="tiles") {
+        toKeep = pinned.filter(itemNum => itemNum!==num)
+        setPinned(toKeep)
+        setTiles([...tiles, num])
       }
-      else if (to==="favorites") {
-        toKeep = list.filter(itemNum => itemNum!==num)
-        setList(toKeep)
-        setFavorites([...favorites, num])
+      else if (to==="pinned") {
+        toKeep = tiles.filter(itemNum => itemNum!==num)
+        setTiles(toKeep)
+        setPinned([...pinned, num])
       }
     }
 
-    const renderList = list.map((num) => 
+    const renderTiles = tiles.map((num) => 
     (<Tile number={num} key={num} />))
 
-    const renderFavorites = favorites.map((num) => 
+    const renderPinned = pinned.map((num) => 
     (<Tile number={num} key={num} />))
 
   return (
@@ -50,16 +58,16 @@ function MyNFTs() {
         <Grid item xs={4}
         onDragStart={handleDragStart}
         onDragOver={allowDrag}
-        onDrop={(e) => handleDragEnd(e, "list")} >
-          Column 1: List
-          {renderList}
+        onDrop={(e) => handleDragEnd(e, "tiles")} >
+          NFTs
+          {renderTiles}
         </Grid>
         <Grid item xs={4}
         onDragStart={handleDragStart}
         onDragOver={allowDrag}
-        onDrop={(e) => handleDragEnd(e, "favorites")} >
-          Column 2: Favorites
-          {renderFavorites}
+        onDrop={(e) => handleDragEnd(e, "pinned")} >
+          Pinned NFTs
+          {renderPinned}
         </Grid>
       </Grid>
     </Paper>

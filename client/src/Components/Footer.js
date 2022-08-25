@@ -1,9 +1,9 @@
-import { Box, Typography, Paper } from "@mui/material"
+import { Typography, Paper } from "@mui/material"
 
 function Footer() {
   return (
     <Paper
-        sx={{position:"absolute", bottom:"0", width:"100vw"}}
+        sx={{minHeight: "100vh", width:"100vw", bottom:"0"}}
     >
         <Typography>
         This project was made by Mark Reese for Phase 5 of the Flatiron School Software Engineering Bootcamp

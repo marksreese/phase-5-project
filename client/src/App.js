@@ -20,7 +20,6 @@ function App() {
   })
 
   const [user, setUser] = useState(null)
-  const [loaded, setLoaded] = useState(false)
   const [nfts, setNfts] = useState([])
 
   useEffect(() => {
@@ -39,10 +38,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing user={user} />} />
         <Route path="/login" element={<LoginOrSignup setUser={setUser} />} />
-        <Route path="/nfts" element={<MyNFTs/>} />
+        <Route path="/nfts" element={<MyNFTs user={user} />} />
         <Route path="/quiz" element={<Quiz/>} />
       </Routes>
-      <Footer/>
+      {/* <Footer/> */}
     </ThemeProvider>
   )
 }
